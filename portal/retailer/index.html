@@ -63,8 +63,8 @@
     </div>
 
     <div class="tab-nav">
-      <button class="tab-btn active" onclick="showTab('apply')">Apply as Retailer</button>
-      <button class="tab-btn" onclick="showTab('login')">Existing Retailer Login</button>
+      <button class="tab-btn active" onclick="showTab('apply', this)">Apply as Retailer</button>
+      <button class="tab-btn" onclick="showTab('login', this)">Existing Retailer Login</button>
     </div>
 
     <!-- Apply Tab -->
@@ -186,11 +186,11 @@
 </footer>
 
 <script>
-function showTab(tab) {
+function showTab(tab, el) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
-  event.target.classList.add('active');
+  if (el) el.classList.add('active');
 }
 function handleApply(e) {
   e.preventDefault();
