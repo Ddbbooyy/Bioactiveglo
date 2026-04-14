@@ -1027,3 +1027,17 @@ details[open] summary {
     grid-template-columns: 1fr;
   }
 }
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .founder-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
