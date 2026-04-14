@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retailer Dashboard | BioActiveGlo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text-primary);display:flex;min-height:100vh;}
+.sidebar{width:240px;background:#111;border-right:1px solid #2a2a2a;display:flex;flex-direction:column;padding:1.5rem 0;flex-shrink:0;}
+.sidebar-logo{padding:0 1.5rem 1.5rem;border-bottom:1px solid #2a2a2a;margin-bottom:1rem;}
+.sidebar-logo a{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text-primary);text-decoration:none;letter-spacing:0.1em;}
+.sidebar-logo a span{color:var(--accent-green);}
+.sidebar-logo p{color:var(--text-muted);font-size:0.72rem;margin-top:0.2rem;}
+.sidebar-nav a{display:flex;align-items:center;gap:0.6rem;padding:0.65rem 1.5rem;color:var(--text-secondary);text-decoration:none;font-size:0.88rem;transition:all 0.2s;}
+.sidebar-nav a:hover,.sidebar-nav a.active{background:rgba(74,124,89,0.12);color:var(--accent-green);border-right:3px solid var(--accent-green);}
+.sidebar-nav a svg{width:16px;height:16px;flex-shrink:0;}
+.sidebar-footer{margin-top:auto;padding:1rem 1.5rem;border-top:1px solid #2a2a2a;}
+.sidebar-footer a{color:var(--text-muted);font-size:0.8rem;text-decoration:none;}
+.main{flex:1;overflow-y:auto;}
+.top-bar{background:#161616;border-bottom:1px solid #2a2a2a;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+.top-bar h1{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-primary);}
+.top-bar .account{display:flex;align-items:center;gap:0.8rem;font-size:0.85rem;color:var(--text-secondary);}
+.account-avatar{width:34px;height:34px;border-radius:50%;background:var(--accent-green);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.85rem;color:#fff;}
+.content{padding:2rem;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem;}
+.stat-card{background:var(--bg-medium);border:1px solid #2e2e2e;border-radius:8px;padding:1.25rem;}
+.stat-card .label{color:var(--text-muted);font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem;}
+.stat-card .value{font-size:1.8rem;font-weight:700;color:var(--text-primary);font-family:'Playfair Display',serif;}
+.stat-card .sub{color:var(--text-muted);font-size:0.78rem;margin-top:0.25rem;}
+.stat-card .up{color:#4a9b6a;}
+.section-card{background:var(--bg-medium);border:1px solid #2e2e2e;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;}
+.section-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text-primary);margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid #333;}
+table{width:100%;border-collapse:collapse;}
+table th{text-align:left;color:var(--text-muted);font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem 0.75rem;border-bottom:1px solid #333;}
+table td{padding:0.75rem;color:var(--text-secondary);font-size:0.87rem;border-bottom:1px solid #2a2a2a;}
+table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.72rem;font-weight:600;}
+.badge-green{background:rgba(74,124,89,0.2);color:#6bbf8a;}
+.badge-amber{background:rgba(200,168,75,0.15);color:#c8a84b;}
+.badge-muted{background:#2a2a2a;color:var(--text-muted);}
+.locked-box{background:rgba(42,107,124,0.08);border:1px solid rgba(42,107,124,0.2);border-radius:6px;padding:1.25rem;text-align:center;}
+.locked-box p{color:var(--text-secondary);font-size:0.88rem;line-height:1.6;}
+.material-item{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;border-bottom:1px solid #2a2a2a;}
+.material-item:last-child{border-bottom:none;}
+.material-info h4{color:var(--text-primary);font-size:0.9rem;margin-bottom:0.2rem;}
+.material-info p{color:var(--text-muted);font-size:0.78rem;}
+.btn-download{padding:0.35rem 0.85rem;background:transparent;border:1px solid var(--accent-green);color:var(--accent-green);border-radius:4px;font-size:0.8rem;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.btn-download:hover{background:var(--accent-green);color:#fff;}
+.notice{background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.25);border-radius:6px;padding:0.9rem 1.1rem;margin-bottom:1.5rem;color:#c8a84b;font-size:0.85rem;}
+@media(max-width:768px){body{flex-direction:column;}.sidebar{width:100%;flex-direction:row;overflow-x:auto;}.sidebar-nav{display:flex;flex-direction:row;}.sidebar-footer{display:none;}}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <a href="/">BIOACTIVE<span>GLO</span></a>
+    <p>Retailer Portal</p>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#overview" class="active" onclick="showSection('overview',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Overview
+    </a>
+    <a href="#orders" onclick="showSection('orders',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+      Orders
+    </a>
+    <a href="#pricing" onclick="showSection('pricing',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      Wholesale Pricing
+    </a>
+    <a href="#materials" onclick="showSection('materials',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Marketing Materials
+    </a>
+    <a href="#account" onclick="showSection('account',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Account Settings
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="index.html">← Sign Out</a>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="top-bar">
+    <h1 id="page-title">Overview</h1>
+    <div class="account">
+      <span>Green Valley Nursery</span>
+      <div class="account-avatar">GV</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="notice">⚠ This is a portal preview. Full transactional functionality requires approved retailer credentials issued by BioActiveGlo.</div>
+
+    <!-- OVERVIEW -->
+    <div id="section-overview">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">This Month</div>
+          <div class="value">$1,840</div>
+          <div class="sub up">↑ 12% vs last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Total Orders</div>
+          <div class="value">14</div>
+          <div class="sub">Since account opened</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Commission Earned</div>
+          <div class="value">$0</div>
+          <div class="sub">See program terms</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Account Status</div>
+          <div class="value" style="font-size:1.1rem;padding-top:0.3rem;"><span class="badge badge-green">Active</span></div>
+          <div class="sub">Approved retailer</div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>Recent Orders</h3>
+        <table>
+          <thead><tr><th>Order #</th><th>Date</th><th>Products</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>#BG-00114</td><td>Apr 10, 2025</td><td>Humic Acid Powder 20lb × 3</td><td>$899.85</td><td><span class="badge badge-green">Shipped</span></td></tr>
+            <tr><td>#BG-00108</td><td>Mar 28, 2025</td><td>Fulvic Acid Powder 5lb × 5</td><td>$449.75</td><td><span class="badge badge-green">Delivered</span></td></tr>
+            <tr><td>#BG-00099</td><td>Mar 15, 2025</td><td>Raw Ore 20lb × 2, Humate Liquid 32oz × 6</td><td>$739.60</td><td><span class="badge badge-green">Delivered</span></td></tr>
+            <tr><td>#BG-00091</td><td>Mar 1, 2025</td><td>Opening Order — Mixed</td><td>$523.70</td><td><span class="badge badge-green">Delivered</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="section-orders" style="display:none;">
+      <div class="section-card">
+        <h3>Order History</h3>
+        <table>
+          <thead><tr><th>Order #</th><th>Date</th><th>Products</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>#BG-00114</td><td>Apr 10, 2025</td><td>Humic Acid Powder 20lb × 3</td><td>$899.85</td><td><span class="badge badge-green">Shipped</span></td></tr>
+            <tr><td>#BG-00108</td><td>Mar 28, 2025</td><td>Fulvic Acid Powder 5lb × 5</td><td>$449.75</td><td><span class="badge badge-green">Delivered</span></td></tr>
+            <tr><td>#BG-00099</td><td>Mar 15, 2025</td><td>Raw Ore 20lb × 2, Humate Liquid 32oz × 6</td><td>$739.60</td><td><span class="badge badge-green">Delivered</span></td></tr>
+            <tr><td>#BG-00091</td><td>Mar 1, 2025</td><td>Opening Order — Mixed</td><td>$523.70</td><td><span class="badge badge-green">Delivered</span></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:1rem;font-size:0.83rem;color:var(--text-muted);">To place a new wholesale order, contact <a href="mailto:wholesale@bioactiveglo.com" style="color:var(--accent-green);">wholesale@bioactiveglo.com</a> or call your account representative. Minimum order: $500. No returns on purchased inventory.</p>
+      </div>
+    </div>
+
+    <!-- WHOLESALE PRICING -->
+    <div id="section-pricing" style="display:none;">
+      <div class="section-card">
+        <h3>Wholesale Pricing</h3>
+        <table>
+          <thead><tr><th>Product</th><th>Retail Price</th><th>Wholesale Price</th><th>Margin</th></tr></thead>
+          <tbody>
+            <tr><td>Humic Acid Powder — 1lb</td><td>$24.95</td><td>$14.97</td><td>~40%</td></tr>
+            <tr><td>Humic Acid Powder — 5lb</td><td>$89.95</td><td>$53.97</td><td>~40%</td></tr>
+            <tr><td>Humic Acid Powder — 20lb</td><td>$299.95</td><td>$179.97</td><td>~40%</td></tr>
+            <tr><td>Fulvic Acid Powder — 1lb</td><td>$34.95</td><td>$20.97</td><td>~40%</td></tr>
+            <tr><td>Fulvic Acid Powder — 5lb</td><td>$129.95</td><td>$77.97</td><td>~40%</td></tr>
+            <tr><td>Fulvic Acid Powder — 20lb</td><td>$449.95</td><td>$269.97</td><td>~40%</td></tr>
+            <tr><td>Raw Ore — 1lb</td><td>$19.95</td><td>$11.97</td><td>~40%</td></tr>
+            <tr><td>Raw Ore — 5lb</td><td>$74.95</td><td>$44.97</td><td>~40%</td></tr>
+            <tr><td>Raw Ore — 20lb</td><td>$249.95</td><td>$149.97</td><td>~40%</td></tr>
+            <tr><td>Humate Liquid — 32oz Spray</td><td>$39.95</td><td>$23.97</td><td>~40%</td></tr>
+            <tr><td>Humate Liquid — 1oz Concentrate</td><td>$19.95</td><td>$11.97</td><td>~40%</td></tr>
+            <tr><td>Fulvic Acid Topical — 32oz Spray</td><td>$44.95</td><td>$26.97</td><td>~40%</td></tr>
+            <tr><td>Fulvic Acid Topical — 1oz Concentrate</td><td>$24.95</td><td>$14.97</td><td>~40%</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Wholesale pricing is confidential and exclusive to approved BioActiveGlo retailers. Do not share publicly. Minimum order $500 per purchase. No returns.</p>
+      </div>
+    </div>
+
+    <!-- MARKETING MATERIALS -->
+    <div id="section-materials" style="display:none;">
+      <div class="section-card">
+        <h3>Marketing Materials Library</h3>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.25rem;">All materials must be used in accordance with BioActiveGlo brand standards. All product descriptions must include "For gardening use only — not for human consumption."</p>
+        <div class="material-item">
+          <div class="material-info"><h4>Brand Kit — Logos & Colors</h4><p>PNG, SVG, AI formats | Brand guidelines included</p></div>
+          <a href="#" class="btn-download" onclick="alert('Download available after account activation.');return false;">Download</a>
+        </div>
+        <div class="material-item">
+          <div class="material-info"><h4>Product Images — High Resolution</h4><p>All SKUs | White background + lifestyle shots</p></div>
+          <a href="#" class="btn-download" onclick="alert('Download available after account activation.');return false;">Download</a>
+        </div>
+        <div class="material-item">
+          <div class="material-info"><h4>Approved Product Descriptions</h4><p>Copy-ready text for all SKUs | Brand-compliant</p></div>
+          <a href="#" class="btn-download" onclick="alert('Download available after account activation.');return false;">Download</a>
+        </div>
+        <div class="material-item">
+          <div class="material-info"><h4>Retailer Wholesale Agreement</h4><p>PDF | Current terms and conditions</p></div>
+          <a href="#" class="btn-download" onclick="alert('Download available after account activation.');return false;">Download</a>
+        </div>
+        <div class="material-item">
+          <div class="material-info"><h4>Spec Sheets — All Products</h4><p>PDF | Ingredients, specs, gardening usage</p></div>
+          <a href="#" class="btn-download" onclick="alert('Download available after account activation.');return false;">Download</a>
+        </div>
+        <div class="material-item">
+          <div class="material-info"><h4>Point-of-Sale Materials</h4><p>Print-ready shelf cards and signage</p></div>
+          <a href="#" class="btn-download" onclick="alert('Download available after account activation.');return false;">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT SETTINGS -->
+    <div id="section-account" style="display:none;">
+      <div class="section-card">
+        <h3>Account Settings</h3>
+        <form onsubmit="e=>e.preventDefault()">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="form-group" style="margin:0;">
+              <label style="color:var(--text-muted);font-size:0.82rem;display:block;margin-bottom:0.4rem;">Business Name</label>
+              <input type="text" value="Green Valley Nursery" style="width:100%;background:var(--bg-dark);border:1px solid #3a3a3a;color:var(--text-primary);padding:0.65rem 0.85rem;border-radius:5px;font-family:'Inter',sans-serif;">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label style="color:var(--text-muted);font-size:0.82rem;display:block;margin-bottom:0.4rem;">Contact Name</label>
+              <input type="text" value="Jane Smith" style="width:100%;background:var(--bg-dark);border:1px solid #3a3a3a;color:var(--text-primary);padding:0.65rem 0.85rem;border-radius:5px;font-family:'Inter',sans-serif;">
+            </div>
+          </div>
+          <div style="margin-top:1rem;">
+            <label style="color:var(--text-muted);font-size:0.82rem;display:block;margin-bottom:0.4rem;">Preferred Payment Method</label>
+            <select style="width:100%;background:var(--bg-dark);border:1px solid #3a3a3a;color:var(--text-primary);padding:0.65rem 0.85rem;border-radius:5px;font-family:'Inter',sans-serif;">
+              <option>PayPal</option>
+              <option>Cash App</option>
+              <option>Venmo</option>
+              <option>Check (mailed)</option>
+            </select>
+          </div>
+          <button type="submit" onclick="alert('Settings saved.')" style="margin-top:1.25rem;padding:0.75rem 1.5rem;background:var(--accent-green);color:#fff;border:none;border-radius:5px;font-family:'Inter',sans-serif;cursor:pointer;">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showSection(id, el) {
+  document.querySelectorAll('[id^="section-"]').forEach(s => s.style.display = 'none');
+  document.getElementById('section-' + id).style.display = 'block';
+  document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('page-title').textContent = el.textContent.trim();
+}
+</script>
+</body>
+</html>
