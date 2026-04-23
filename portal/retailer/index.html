@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retailer Portal | BioActiveGlo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.portal-page { min-height: 100vh; background: var(--bg-dark); padding: 2rem 1rem; }
+.portal-container { max-width: 680px; margin: 0 auto; }
+.portal-logo { text-align: center; margin-bottom: 2.5rem; }
+.portal-logo a { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--text-primary); text-decoration: none; letter-spacing: 0.12em; }
+.portal-logo span { color: var(--accent-green); }
+.tab-nav { display: flex; border-bottom: 1px solid #333; margin-bottom: 2rem; }
+.tab-btn { flex: 1; padding: 0.85rem; background: none; border: none; color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.95rem; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; }
+.tab-btn.active { color: var(--accent-green); border-bottom-color: var(--accent-green); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.portal-card { background: var(--bg-medium); border: 1px solid #333; border-radius: 8px; padding: 2rem; }
+.portal-card h2 { font-family: 'Playfair Display', serif; color: var(--text-primary); font-size: 1.5rem; margin-bottom: 0.5rem; }
+.portal-card p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6; }
+.requirements-box { background: rgba(74,124,89,0.1); border: 1px solid rgba(74,124,89,0.3); border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+.requirements-box h4 { color: var(--accent-green); font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.requirements-box ul { list-style: none; padding: 0; margin: 0; }
+.requirements-box ul li { color: var(--text-secondary); font-size: 0.88rem; padding: 0.2rem 0; padding-left: 1rem; position: relative; }
+.requirements-box ul li::before { content: "✓"; position: absolute; left: 0; color: var(--accent-green); }
+.form-group { margin-bottom: 1.2rem; }
+.form-group label { display: block; color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem; font-family: 'Inter', sans-serif; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; background: var(--bg-dark); border: 1px solid #3a3a3a; color: var(--text-primary); padding: 0.7rem 0.9rem; border-radius: 5px; font-family: 'Inter', sans-serif; font-size: 0.9rem; box-sizing: border-box; transition: border-color 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-green); }
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-group select option { background: #222; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.checkbox-group { display: flex; align-items: flex-start; gap: 0.6rem; }
+.checkbox-group input[type="checkbox"] { width: auto; margin-top: 3px; }
+.checkbox-group label { font-size: 0.83rem; color: var(--text-secondary); }
+.btn-submit { width: 100%; padding: 0.9rem; background: var(--accent-green); color: #fff; border: none; border-radius: 5px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; letter-spacing: 0.04em; transition: background 0.2s; margin-top: 0.5rem; }
+.btn-submit:hover { background: #3a6547; }
+.approval-note { text-align: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.82rem; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">BIOACTIVE<span>GLO</span></a>
+    <div class="nav-links">
+      <a href="/products/">Products</a>
+      <a href="/resources/">Resources</a>
+      <a href="/b2b/">B2B</a>
+      <a href="/portal/retailer/" class="btn btn-primary" style="padding:0.4rem 1rem;font-size:0.85rem;">Retailer Login</a>
+    </div>
+  </div>
+</nav>
+
+<div class="portal-page">
+  <div class="portal-container">
+    <div class="portal-logo">
+      <a href="/">BIOACTIVE<span>GLO</span></a>
+      <p style="color:var(--text-muted);font-size:0.82rem;margin-top:0.4rem;font-family:'Inter',sans-serif;">Retailer Partner Portal</p>
+    </div>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('apply', this)">Apply as Retailer</button>
+      <button class="tab-btn" onclick="showTab('login', this)">Existing Retailer Login</button>
+    </div>
+
+    <!-- Apply Tab -->
+    <div id="tab-apply" class="tab-content active">
+      <div class="portal-card">
+        <h2>Retailer Application</h2>
+        <p>Apply to carry BioActiveGlo products in your store or distribution network. All applications are reviewed within 1–3 business days.</p>
+        <div class="requirements-box">
+          <h4>Requirements</h4>
+          <ul>
+            <li>$500 minimum opening order</li>
+            <li>Must follow BioActiveGlo brand standards and voice</li>
+            <li>Cannot carry competing fulvic/humic acid products</li>
+            <li>Agreement to no-returns policy on purchased inventory</li>
+            <li>Non-exclusive — you may carry other product lines</li>
+          </ul>
+        </div>
+        <form onsubmit="handleApply(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Business Name *</label>
+              <input type="text" required placeholder="Your business name">
+            </div>
+            <div class="form-group">
+              <label>Contact Name *</label>
+              <input type="text" required placeholder="Your full name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" required placeholder="you@business.com">
+            </div>
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" required placeholder="(555) 000-0000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Business Website</label>
+            <input type="url" placeholder="https://yourbusiness.com">
+          </div>
+          <div class="form-group">
+            <label>Business Type *</label>
+            <select required>
+              <option value="">Select business type</option>
+              <option>Garden Center / Nursery</option>
+              <option>Farm Supply Store</option>
+              <option>Online Retailer</option>
+              <option>Agricultural Co-op</option>
+              <option>Landscaping Company</option>
+              <option>Specialty Health / Wellness Shop</option>
+              <option>Wholesale Distributor</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Expected Monthly Order Volume *</label>
+            <select required>
+              <option value="">Select volume range</option>
+              <option>$500 – $1,000</option>
+              <option>$1,000 – $5,000</option>
+              <option>$5,000 – $15,000</option>
+              <option>$15,000+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>How did you hear about BioActiveGlo?</label>
+            <select>
+              <option value="">Select an option</option>
+              <option>Danny Albert / dannyalbert.com</option>
+              <option>Search Engine</option>
+              <option>Social Media</option>
+              <option>Industry Event</option>
+              <option>Referral</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Additional Notes</label>
+            <textarea placeholder="Tell us about your customer base and how BioActiveGlo products fit your business..."></textarea>
+          </div>
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="terms" required>
+              <label for="terms">I have read and agree to the BioActiveGlo Retailer Terms, including the $500 minimum order, no-returns policy, and brand standards requirements.</label>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">Submit Retailer Application</button>
+          <p class="approval-note">Applications reviewed within 1–3 business days. You will receive login credentials upon approval.</p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Login Tab -->
+    <div id="tab-login" class="tab-content">
+      <div class="portal-card">
+        <h2>Retailer Login</h2>
+        <p>Access your private dashboard to view wholesale pricing, track orders, and download marketing materials.</p>
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" required placeholder="you@business.com">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn-submit">Sign In to Dashboard</button>
+          <p class="approval-note" style="margin-top:1rem;">Not yet approved? <a href="#" onclick="showTab('apply');return false;" style="color:var(--accent-green);">Apply here</a>. For login issues contact <a href="mailto:retailers@bioactiveglo.com" style="color:var(--accent-green);">retailers@bioactiveglo.com</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="background:#111;border-top:1px solid #2a2a2a;padding:1.5rem;text-align:center;margin-top:2rem;">
+  <p style="color:var(--text-muted);font-size:0.8rem;font-family:'Inter',sans-serif;">© 2025 BioActiveGlo | Engineered by Danny Albert | <a href="https://dannyalbert.com" style="color:var(--accent-green);">dannyalbert.com</a></p>
+</footer>
+
+<script>
+function showTab(tab, el) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (el) el.classList.add('active');
+}
+function handleApply(e) {
+  e.preventDefault();
+  alert('Thank you for your application! We will review it and contact you within 1–3 business days.');
+}
+function handleLogin(e) {
+  e.preventDefault();
+  window.location.href = 'dashboard.html';
+}
+</script>
+</body>
+</html>
